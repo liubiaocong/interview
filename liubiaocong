@@ -1,0 +1,88 @@
+
+Hello  我用的是Swift 写的
+
+func getProductArray(array: [Int]) -> [Int] {
+    var sum = 1
+    var newArray: Array<Int> = []
+    for item in array {
+        sum *= item
+    }
+    for item in array {
+        newArray.append((sum / item))
+    }
+    return newArray
+}
+
+
+func getNumberFirstArray( array: inout [Int] ) -> [Int] {
+    var zeroSumArray: [Int] = []
+    for (index,item) in array.enumerated() {
+       
+        if item == 0  {
+           zeroSumArray.append(index)
+        }
+    }
+    for item in zeroSumArray.reversed() {
+        array.remove(at: item)
+        array.append(0)
+    }
+    
+    return array
+}
+typealias NumberFirstArray = (inout [Int]) -> [Int]
+
+
+func Sqrt(a: Int) -> Int{
+    guard a > 0 else {
+        return 0
+    }
+    
+    var left = 1
+    var right = a
+    var mid = left + (right - left) / 2
+    while left <= right {
+        if mid == a / mid {
+            return mid
+        } else {
+            if mid > a / mid {
+                right = mid - 1
+            } else {
+                left = mid + 1
+            }
+            mid = left + (right - left) / 2
+        }
+        
+    }
+    return right
+}
+
+func Pow(x: Double, n: Int) -> Double {
+    if n == 0 || x == 1 {
+        return 1
+    }
+    return ComputePow(x: x, n: n)
+}
+
+func ComputePow(x: Double, n: Int) -> Double {
+    var sum: Double = 1
+    var pre: Double = x
+    var count =  n
+    while count != 0 {
+        if count == 1 {
+            sum = sum * pre
+        }
+        pre = pre * pre
+        count -= 1
+    }
+    return sum
+}
+
+print(getProductArray(array: [1, 2, 3, 4]));
+
+let numberFirstArray: NumberFirstArray = getNumberFirstArray
+var array =  [0, 1, 0, 3, 12]
+print(getNumberFirstArray(array: &array))
+
+print(Sqrt(a: 3))
+
+print(Pow(x: 2.4, n: 2))
